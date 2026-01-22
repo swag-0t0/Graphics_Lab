@@ -1,0 +1,399 @@
+﻿#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
+#include <iostream>
+#include <cmath>
+#include <cstring>
+
+using namespace std;
+
+// Simple 4x4 Matrix structure and operations
+struct Matrix4 {
+    float m[16];
+    
+    Matrix4() {
+        // Identity matrix
+        memset(m, 0, sizeof(m));
+        m[0] = m[5] = m[10] = m[15] = 1.0f;
+    }
+    
+    static Matrix4 identity() {
+        return Matrix4();
+    }
+    
+    static Matrix4 translate(const Matrix4& mat, float x, float y, float z) {
+        Matrix4 result = mat;
+        result.m[12] += x;
+        result.m[13] += y;
+        result.m[14] += z;
+        return result;
+    }
+    
+    static Matrix4 rotateZ(const Matrix4& mat, float angleRad) {
+        Matrix4 result = mat;
+        float cos_a = cos(angleRad);
+        float sin_a = sin(angleRad);
+        
+        Matrix4 rot;
+        rot.m[0] = cos_a;   rot.m[1] = sin_a;
+        rot.m[4] = -sin_a;  rot.m[5] = cos_a;
+        
+        // Multiply mat * rot
+        result = multiply(mat, rot);
+        return result;
+    }
+    
+    static Matrix4 scale(const Matrix4& mat, float sx, float sy, float sz) {
+        Matrix4 result = mat;
+        Matrix4 scl;
+        scl.m[0] = sx;
+        scl.m[5] = sy;
+        scl.m[10] = sz;
+        
+        result = multiply(mat, scl);
+        return result;
+    }
+    
+    static Matrix4 multiply(const Matrix4& a, const Matrix4& b) {
+        Matrix4 result;
+        memset(result.m, 0, sizeof(result.m));
+        
+        for (int i = 0; i < 4; ++i) {
+            for (int j = 0; j < 4; ++j) {
+                for (int k = 0; k < 4; ++k) {
+                    result.m[i * 4 + j] += a.m[i * 4 + k] * b.m[k * 4 + j];
+                }
+            }
+        }
+        return result;
+    }
+};
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+void processInput(GLFWwindow* window);
+
+// settings
+const unsigned int SCR_WIDTH = 800;
+const unsigned int SCR_HEIGHT = 600;
+
+// Global transformation variables
+float boatRotate = 0.0f;
+float boatTranslateX = 0.0f;
+float boatTranslateY = 0.0f;
+float boatScaleX = 1.0f;
+float boatScaleY = 1.0f;
+
+// Individual parts transformation
+float sailRotate = 0.0f;
+float sailScale = 1.0f;
+float mastTranslateX = 0.0f;
+
+int activeMode = 0; // 0 = whole boat, 1 = sail, 2 = mast
+
+const char* vertexShaderSource = "#version 330 core\n"
+"layout (location = 0) in vec3 aPos;\n"
+"uniform mat4 transform;\n"
+"void main()\n"
+"{\n"
+"   gl_Position = transform * vec4(aPos, 1.0);\n"
+"}\0";
+
+const char* fragmentShaderSource = "#version 330 core\n"
+"out vec4 FragColor;\n"
+"uniform vec3 color;\n"
+"void main()\n"
+"{\n"
+"   FragColor = vec4(color, 1.0);\n"
+"}\n\0";
+
+int main()
+{
+    // glfw: initialize and configure
+    glfwInit();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+#ifdef __APPLE__
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
+
+    // glfw window creation
+    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Interactive Sailboat", NULL, NULL);
+    if (window == NULL)
+    {
+        std::cout << "Failed to create GLFW window" << std::endl;
+        glfwTerminate();
+        return -1;
+    }
+    glfwMakeContextCurrent(window);
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+    // glad: load all OpenGL function pointers
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        std::cout << "Failed to initialize GLAD" << std::endl;
+        return -1;
+    }
+
+    // build and compile shader program
+    unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+    glCompileShader(vertexShader);
+
+    int success;
+    char infoLog[512];
+    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+    if (!success)
+    {
+        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+    }
+
+    unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+    glCompileShader(fragmentShader);
+
+    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+    if (!success)
+    {
+        glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+    }
+
+    unsigned int shaderProgram = glCreateProgram();
+    glAttachShader(shaderProgram, vertexShader);
+    glAttachShader(shaderProgram, fragmentShader);
+    glLinkProgram(shaderProgram);
+
+    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+    if (!success)
+    {
+        glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+    }
+    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader);
+
+    // BOAT HULL (brown rectangle at bottom)
+    float hullVertices[] = {
+        -0.3f, -0.2f, 0.0f,  // left
+         0.3f, -0.2f, 0.0f,  // right
+         0.3f, -0.4f, 0.0f,  // right bottom
+        -0.3f, -0.2f, 0.0f,  // left
+         0.3f, -0.4f, 0.0f,  // right bottom
+        -0.3f, -0.4f, 0.0f   // left bottom
+    };
+
+    // MAST (vertical line - gray)
+    float mastVertices[] = {
+        0.0f, -0.2f, 0.0f,   // bottom of mast
+        0.0f,  0.3f, 0.0f    // top of mast
+    };
+
+    // SAIL (triangle - white)
+    float sailVertices[] = {
+        0.0f,  0.1f, 0.0f,   // top
+        0.0f, -0.1f, 0.0f,   // bottom left
+        0.3f, -0.05f, 0.0f   // bottom right
+    };
+
+    // WATER (light blue background - 2 triangles)
+    float waterVertices[] = {
+        -1.0f, -0.5f, 0.0f,
+         1.0f, -0.5f, 0.0f,
+         1.0f, -1.0f, 0.0f,
+        -1.0f, -0.5f, 0.0f,
+         1.0f, -1.0f, 0.0f,
+        -1.0f, -1.0f, 0.0f
+    };
+
+    unsigned int VBO[4], VAO[4];
+    glGenVertexArrays(4, VAO);
+    glGenBuffers(4, VBO);
+
+    // Setup Water
+    glBindVertexArray(VAO[0]);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(waterVertices), waterVertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    // Setup Hull
+    glBindVertexArray(VAO[1]);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(hullVertices), hullVertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    // Setup Mast
+    glBindVertexArray(VAO[2]);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[2]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(mastVertices), mastVertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    // Setup Sail
+    glBindVertexArray(VAO[3]);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[3]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(sailVertices), sailVertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+
+    // render loop
+    while (!glfwWindowShouldClose(window))
+    {
+        processInput(window);
+
+        // render
+        glClearColor(0.5f, 0.7f, 0.9f, 1.0f); // Sky blue
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        glUseProgram(shaderProgram);
+        unsigned int transformLoc = glGetUniformLocation(shaderProgram, "transform");
+        unsigned int colorLoc = glGetUniformLocation(shaderProgram, "color");
+
+        // Draw Water
+        Matrix4 waterTransform = Matrix4::identity();
+        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, waterTransform.m);
+        glUniform3f(colorLoc, 0.2f, 0.5f, 0.8f); // Water blue
+        glBindVertexArray(VAO[0]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        // === WHOLE BOAT TRANSFORMATION ===
+        Matrix4 boatBase = Matrix4::identity();
+        boatBase = Matrix4::translate(boatBase, boatTranslateX, boatTranslateY, 0.0f);
+        boatBase = Matrix4::rotateZ(boatBase, boatRotate * 3.14159f / 180.0f);
+        boatBase = Matrix4::scale(boatBase, boatScaleX, boatScaleY, 1.0f);
+
+        // Draw Hull
+        Matrix4 hullTransform = boatBase;
+        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, hullTransform.m);
+        glUniform3f(colorLoc, 0.6f, 0.3f, 0.1f); // Brown
+        glBindVertexArray(VAO[1]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        // Draw Mast (apply individual mast translation AFTER boat transform)
+        Matrix4 mastTransform = boatBase;
+        mastTransform = Matrix4::translate(mastTransform, mastTranslateX, 0.0f, 0.0f);
+        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, mastTransform.m);
+        glUniform3f(colorLoc, 0.4f, 0.4f, 0.4f); // Gray
+        glBindVertexArray(VAO[2]);
+        glDrawArrays(GL_LINE_STRIP, 0, 2);
+        glLineWidth(3.0f);
+        glDrawArrays(GL_LINE_STRIP, 0, 2);
+        glLineWidth(1.0f);
+
+        // Draw Sail (apply individual sail rotation and scale AFTER boat transform)
+        Matrix4 sailTransform = boatBase;
+        sailTransform = Matrix4::rotateZ(sailTransform, sailRotate * 3.14159f / 180.0f);
+        sailTransform = Matrix4::scale(sailTransform, sailScale, sailScale, 1.0f);
+        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, sailTransform.m);
+        glUniform3f(colorLoc, 0.95f, 0.95f, 1.0f); // White sail
+        glBindVertexArray(VAO[3]);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+
+        // glfw: swap buffers and poll IO events
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+    }
+
+    // de-allocate all resources
+    glDeleteVertexArrays(4, VAO);
+    glDeleteBuffers(4, VBO);
+    glDeleteProgram(shaderProgram);
+
+    glfwTerminate();
+    return 0;
+}
+
+void processInput(GLFWwindow* window)
+{
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
+
+    // Mode selection: 1 = Whole Boat, 2 = Sail, 3 = Mast
+    if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
+        activeMode = 0;
+    if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS)
+        activeMode = 1;
+    if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS)
+        activeMode = 2;
+
+    // WHOLE BOAT TRANSFORMATIONS (Mode 0)
+    if (activeMode == 0)
+    {
+        // Rotation
+        if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+            boatRotate += 1.0f;
+        if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS)
+            boatRotate -= 1.0f;
+
+        // Translation
+        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+            boatTranslateY += 0.01f;
+        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+            boatTranslateY -= 0.01f;
+        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+            boatTranslateX += 0.01f;
+        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+            boatTranslateX -= 0.01f;
+
+        // Scaling
+        if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS)
+            boatScaleX += 0.01f;
+        if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS)
+            boatScaleX -= 0.01f;
+        if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS)
+            boatScaleY += 0.01f;
+        if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS)
+            boatScaleY -= 0.01f;
+    }
+
+    // SAIL TRANSFORMATIONS (Mode 1)
+    if (activeMode == 1)
+    {
+        // Rotation
+        if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+            sailRotate += 1.0f;
+        if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS)
+            sailRotate -= 1.0f;
+
+        // Scaling
+        if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS)
+            sailScale += 0.01f;
+        if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS)
+            sailScale -= 0.01f;
+    }
+
+    // MAST TRANSFORMATIONS (Mode 2)
+    if (activeMode == 2)
+    {
+        // Translation
+        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+            mastTranslateX += 0.01f;
+        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+            mastTranslateX -= 0.01f;
+    }
+
+    // Reset all (Press Z)
+    if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS)
+    {
+        boatRotate = 0.0f;
+        boatTranslateX = 0.0f;
+        boatTranslateY = 0.0f;
+        boatScaleX = 1.0f;
+        boatScaleY = 1.0f;
+        sailRotate = 0.0f;
+        sailScale = 1.0f;
+        mastTranslateX = 0.0f;
+    }
+}
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+    glViewport(0, 0, width, height);
+}

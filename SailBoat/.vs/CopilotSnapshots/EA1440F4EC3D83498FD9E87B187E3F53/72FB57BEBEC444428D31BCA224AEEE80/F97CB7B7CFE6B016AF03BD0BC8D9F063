@@ -1,0 +1,265 @@
+﻿#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+#include <iostream>
+#include <cmath>
+
+// ================= MATRIX =================
+struct Mat4 {
+    float m[16];
+    Mat4() {
+        for (int i = 0; i < 16; i++) m[i] = 0;
+        m[0] = m[5] = m[10] = m[15] = 1.0f;
+    }
+};
+
+Mat4 translate(float x, float y) {
+    Mat4 r;
+    r.m[12] = x;
+    r.m[13] = y;
+    return r;
+}
+
+Mat4 rotateX(float deg) {
+    Mat4 r;
+    float rad = deg * 3.14159f / 180.0f;
+    r.m[0] = 1.0f;
+    r.m[5] = cos(rad);  r.m[6] = sin(rad);
+    r.m[9] = -sin(rad); r.m[10] = cos(rad);
+    return r;
+}
+
+Mat4 scale(float s) {
+    Mat4 r;
+    r.m[0] = r.m[5] = s;
+    return r;
+}
+
+Mat4 multiply(Mat4 a, Mat4 b) {
+    Mat4 r;
+    for (int i = 0; i < 4; i++)
+        for (int j = 0; j < 4; j++)
+            for (int k = 0; k < 4; k++)
+                r.m[i * 4 + j] += a.m[i * 4 + k] * b.m[k * 4 + j];
+    return r;
+}
+
+// ================= SHADERS =================
+const char* vs =
+"#version 330 core\n"
+"layout(location=0) in vec3 aPos;\n"
+"uniform mat4 transform;\n"
+"void main(){ gl_Position = transform * vec4(aPos,1.0); }\0";
+
+const char* fs =
+"#version 330 core\n"
+"out vec4 FragColor;\n"
+"uniform vec3 color;\n"
+"void main(){ FragColor = vec4(color,1.0); }\0";
+
+// ================= GLOBAL =================
+float posX = 0.0f;
+float rotX = 0.0f;  // Pitch rotation around mast top (pendulum motion)
+float scl = 1.0f;
+
+// Pivot point (top of mast)
+const float PIVOT_X = 0.0f;
+const float PIVOT_Y = 0.45f;
+
+// sensitivity
+const float MOVE = 0.002f;
+const float ROT = 0.2f;
+const float SCALE = 0.002f;
+
+// ================= INPUT =================
+void input(GLFWwindow* w) {
+    if (glfwGetKey(w, GLFW_KEY_A) == GLFW_PRESS) posX -= MOVE;
+    if (glfwGetKey(w, GLFW_KEY_D) == GLFW_PRESS) posX += MOVE;
+    if (glfwGetKey(w, GLFW_KEY_R) == GLFW_PRESS) rotX += ROT;
+    if (glfwGetKey(w, GLFW_KEY_T) == GLFW_PRESS) rotX -= ROT;
+    if (glfwGetKey(w, GLFW_KEY_X) == GLFW_PRESS) scl += SCALE;
+    if (glfwGetKey(w, GLFW_KEY_C) == GLFW_PRESS) scl -= SCALE;
+
+    if (scl < 0.4f) scl = 0.4f;
+    if (scl > 1.6f) scl = 1.6f;
+
+    if (glfwGetKey(w, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(w, true);
+}
+
+// ================= MAIN =================
+int main() {
+    glfwInit();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+    const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+    
+    GLFWwindow* window = glfwCreateWindow(mode->width, mode->height, "Pendulum Sailboat", monitor, NULL);
+    glfwMakeContextCurrent(window);
+    gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+
+    // ===== SHADER =====
+    unsigned int v = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(v, 1, &vs, NULL);
+    glCompileShader(v);
+
+    unsigned int f = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(f, 1, &fs, NULL);
+    glCompileShader(f);
+
+    unsigned int prog = glCreateProgram();
+    glAttachShader(prog, v);
+    glAttachShader(prog, f);
+    glLinkProgram(prog);
+    glDeleteShader(v);
+    glDeleteShader(f);
+
+    // ===== BOAT HULL (with better shape for pendulum effect) =====
+    float hull[] = {
+        // Main rectangular hull
+        -0.45f, -0.05f, 0.0f,
+         0.45f, -0.05f, 0.0f,
+         0.45f, -0.30f, 0.0f,
+
+        -0.45f, -0.05f, 0.0f,
+         0.45f, -0.30f, 0.0f,
+        -0.45f, -0.30f, 0.0f
+    };
+
+    // ===== LEFT SIDE PANEL (pointed front) =====
+    float leftPanel[] = {
+        -0.45f, -0.05f, 0.0f,
+        -0.75f, 0.10f, 0.0f,
+        -0.45f, -0.30f, 0.0f
+    };
+
+    // ===== RIGHT SIDE PANEL (pointed front) =====
+    float rightPanel[] = {
+        0.45f, -0.05f, 0.0f,
+        0.45f, -0.30f, 0.0f,
+        0.75f, 0.10f, 0.0f
+    };
+
+    // ===== MAST =====
+    float mast[] = {
+        -0.015f, -0.05f, 0.0f,
+         0.015f, -0.05f, 0.0f,
+         0.015f, 0.45f, 0.0f,
+
+        -0.015f, -0.05f, 0.0f,
+         0.015f, 0.45f, 0.0f,
+        -0.015f, 0.45f, 0.0f
+    };
+
+    // ===== FLAG (triangular flag) =====
+    float flag[] = {
+        0.015f, 0.40f, 0.0f,
+        0.015f, 0.25f, 0.0f,
+        0.30f, 0.32f, 0.0f
+    };
+
+    // ===== FLAG OUTLINE =====
+    float flagOutline[] = {
+        0.015f, 0.40f, 0.0f,
+        0.015f, 0.25f, 0.0f,
+
+        0.015f, 0.25f, 0.0f,
+        0.30f, 0.32f, 0.0f,
+
+        0.30f, 0.32f, 0.0f,
+        0.015f, 0.40f, 0.0f
+    };
+
+    unsigned int VAO[6], VBO[6];
+    glGenVertexArrays(6, VAO);
+    glGenBuffers(6, VBO);
+
+    auto setup = [&](int i, float* v, int sz) {
+        glBindVertexArray(VAO[i]);
+        glBindBuffer(GL_ARRAY_BUFFER, VBO[i]);
+        glBufferData(GL_ARRAY_BUFFER, sz, v, GL_STATIC_DRAW);
+        glVertexAttribPointer(0, 3, GL_FLOAT, false, 3 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(0);
+    };
+
+    setup(0, hull, sizeof(hull));
+    setup(1, leftPanel, sizeof(leftPanel));
+    setup(2, rightPanel, sizeof(rightPanel));
+    setup(3, mast, sizeof(mast));
+    setup(4, flag, sizeof(flag));
+    setup(5, flagOutline, sizeof(flagOutline));
+
+    glLineWidth(2.0f);
+
+    // ===== LOOP =====
+    while (!glfwWindowShouldClose(window)) {
+        input(window);
+        glClearColor(0.6f, 0.8f, 1.0f, 1);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        glUseProgram(prog);
+        int tLoc = glGetUniformLocation(prog, "transform");
+        int cLoc = glGetUniformLocation(prog, "color");
+
+        // Correct transformation order for pendulum rotation around mast top:
+        // 1. Translate to position (posX)
+        // 2. Translate to pivot point (PIVOT_X, PIVOT_Y)
+        // 3. Apply scaling
+        // 4. Apply rotation (around origin which is now at pivot)
+        // 5. Translate back from pivot (to original position)
+        Mat4 T_pos = translate(posX, 0.0f);
+        Mat4 T_to_pivot = translate(PIVOT_X, PIVOT_Y);
+        Mat4 S = scale(scl);
+        Mat4 R = rotateX(rotX);
+        Mat4 T_from_pivot = translate(-PIVOT_X, -PIVOT_Y);
+        
+        // Combine in correct order: T_pos * T_to_pivot * S * R * T_from_pivot
+        Mat4 M_temp = multiply(R, T_from_pivot);
+        M_temp = multiply(S, M_temp);
+        M_temp = multiply(T_to_pivot, M_temp);
+        Mat4 M = multiply(T_pos, M_temp);
+
+        // Main hull (brown color)
+        glUniform3f(cLoc, 0.6f, 0.35f, 0.1f);
+        glUniformMatrix4fv(tLoc, 1, false, M.m);
+        glBindVertexArray(VAO[0]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        // Left panel
+        glUniform3f(cLoc, 0.5f, 0.28f, 0.08f);
+        glUniformMatrix4fv(tLoc, 1, false, M.m);
+        glBindVertexArray(VAO[1]);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+
+        // Right panel
+        glUniformMatrix4fv(tLoc, 1, false, M.m);
+        glBindVertexArray(VAO[2]);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+
+        // Mast (rotates with entire boat)
+        glUniform3f(cLoc, 0.1f, 0.1f, 0.1f);
+        glUniformMatrix4fv(tLoc, 1, false, M.m);
+        glBindVertexArray(VAO[3]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        // Flag (rotates with entire boat)
+        glUniform3f(cLoc, 0.95f, 0.95f, 0.95f);
+        glUniformMatrix4fv(tLoc, 1, false, M.m);
+        glBindVertexArray(VAO[4]);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+
+        // Flag outline (rotates with entire boat)
+        glUniform3f(cLoc, 0.0f, 0.0f, 0.0f);
+        glUniformMatrix4fv(tLoc, 1, false, M.m);
+        glBindVertexArray(VAO[5]);
+        glDrawArrays(GL_LINES, 0, 6);
+
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+    }
+
+    glfwTerminate();
+    return 0;
+}

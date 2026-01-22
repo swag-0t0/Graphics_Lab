@@ -1,0 +1,42 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\Visual Studio\\Visual Studio Files\\SailBoat\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A1B702AD-E8F5-442B-9371-903CA35118DD}|SailBoat\\SailBoat.vcxproj|E:\\Visual Studio\\Visual Studio Files\\SailBoat\\SailBoat\\SailBoat.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A1B702AD-E8F5-442B-9371-903CA35118DD}|SailBoat\\SailBoat.vcxproj|solutionrelative:SailBoat\\SailBoat.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 95,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SailBoat.cpp",
+              "DocumentMoniker": "E:\\Visual Studio\\Visual Studio Files\\SailBoat\\SailBoat\\SailBoat.cpp",
+              "RelativeDocumentMoniker": "SailBoat\\SailBoat.cpp",
+              "ToolTip": "E:\\Visual Studio\\Visual Studio Files\\SailBoat\\SailBoat\\SailBoat.cpp",
+              "RelativeToolTip": "SailBoat\\SailBoat.cpp",
+              "ViewState": "AgIAAM0AAAAAAAAAAAAgwO0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-01-10T08:58:05.908Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
