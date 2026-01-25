@@ -1,0 +1,124 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "F:\\Academics\\4th year 2nd term\\Graphics\\gymnasium\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8E56D850-9650-4B53-B810-179430A6E18F}|gymnasium\\gymnasium.vcxproj|F:\\Academics\\4th year 2nd term\\Graphics\\gymnasium\\gymnasium\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8E56D850-9650-4B53-B810-179430A6E18F}|gymnasium\\gymnasium.vcxproj|solutionrelative:gymnasium\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E56D850-9650-4B53-B810-179430A6E18F}|gymnasium\\gymnasium.vcxproj|F:\\Academics\\4th year 2nd term\\Graphics\\gymnasium\\gymnasium\\camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8E56D850-9650-4B53-B810-179430A6E18F}|gymnasium\\gymnasium.vcxproj|solutionrelative:gymnasium\\camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E56D850-9650-4B53-B810-179430A6E18F}|gymnasium\\gymnasium.vcxproj|F:\\Academics\\4th year 2nd term\\Graphics\\gymnasium\\gymnasium\\fragmentshader.fs||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{8E56D850-9650-4B53-B810-179430A6E18F}|gymnasium\\gymnasium.vcxproj|solutionrelative:gymnasium\\fragmentshader.fs||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E56D850-9650-4B53-B810-179430A6E18F}|gymnasium\\gymnasium.vcxproj|F:\\Academics\\4th year 2nd term\\Graphics\\gymnasium\\gymnasium\\vertexshader.vs||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{8E56D850-9650-4B53-B810-179430A6E18F}|gymnasium\\gymnasium.vcxproj|solutionrelative:gymnasium\\vertexshader.vs||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E56D850-9650-4B53-B810-179430A6E18F}|gymnasium\\gymnasium.vcxproj|F:\\Academics\\4th year 2nd term\\Graphics\\gymnasium\\gymnasium\\shader.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8E56D850-9650-4B53-B810-179430A6E18F}|gymnasium\\gymnasium.vcxproj|solutionrelative:gymnasium\\shader.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\Academics\\4th year 2nd term\\Graphics\\gymnasium\\opengl\\src\\glad.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:opengl\\src\\glad.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 95,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "main.cpp",
+              "DocumentMoniker": "F:\\Academics\\4th year 2nd term\\Graphics\\gymnasium\\gymnasium\\main.cpp",
+              "RelativeDocumentMoniker": "gymnasium\\main.cpp",
+              "ToolTip": "F:\\Academics\\4th year 2nd term\\Graphics\\gymnasium\\gymnasium\\main.cpp",
+              "RelativeToolTip": "gymnasium\\main.cpp",
+              "ViewState": "AgIAAPsCAAAAAAAAAAApwCoDAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-01-24T17:54:00.849Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "glad.c",
+              "DocumentMoniker": "F:\\Academics\\4th year 2nd term\\Graphics\\gymnasium\\opengl\\src\\glad.c",
+              "RelativeDocumentMoniker": "opengl\\src\\glad.c",
+              "ToolTip": "F:\\Academics\\4th year 2nd term\\Graphics\\gymnasium\\opengl\\src\\glad.c",
+              "RelativeToolTip": "opengl\\src\\glad.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-01-24T18:13:38.087Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "fragmentshader.fs",
+              "DocumentMoniker": "F:\\Academics\\4th year 2nd term\\Graphics\\gymnasium\\gymnasium\\fragmentshader.fs",
+              "RelativeDocumentMoniker": "gymnasium\\fragmentshader.fs",
+              "ToolTip": "F:\\Academics\\4th year 2nd term\\Graphics\\gymnasium\\gymnasium\\fragmentshader.fs",
+              "RelativeToolTip": "gymnasium\\fragmentshader.fs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABAAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-01-24T17:55:30.24Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "camera.h",
+              "DocumentMoniker": "F:\\Academics\\4th year 2nd term\\Graphics\\gymnasium\\gymnasium\\camera.h",
+              "RelativeDocumentMoniker": "gymnasium\\camera.h",
+              "ToolTip": "F:\\Academics\\4th year 2nd term\\Graphics\\gymnasium\\gymnasium\\camera.h",
+              "RelativeToolTip": "gymnasium\\camera.h",
+              "ViewState": "AgIAABoAAAAAAAAAAAAgwDIAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-01-24T17:55:11.463Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "vertexshader.vs",
+              "DocumentMoniker": "F:\\Academics\\4th year 2nd term\\Graphics\\gymnasium\\gymnasium\\vertexshader.vs",
+              "RelativeDocumentMoniker": "gymnasium\\vertexshader.vs",
+              "ToolTip": "F:\\Academics\\4th year 2nd term\\Graphics\\gymnasium\\gymnasium\\vertexshader.vs",
+              "RelativeToolTip": "gymnasium\\vertexshader.vs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-01-24T17:54:43.634Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "shader.h",
+              "DocumentMoniker": "F:\\Academics\\4th year 2nd term\\Graphics\\gymnasium\\gymnasium\\shader.h",
+              "RelativeDocumentMoniker": "gymnasium\\shader.h",
+              "ToolTip": "F:\\Academics\\4th year 2nd term\\Graphics\\gymnasium\\gymnasium\\shader.h",
+              "RelativeToolTip": "gymnasium\\shader.h",
+              "ViewState": "AgIAAGMAAAAAAAAAAAAgwHYAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-01-24T17:54:18.148Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

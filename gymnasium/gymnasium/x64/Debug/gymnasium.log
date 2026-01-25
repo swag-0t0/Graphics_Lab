@@ -1,0 +1,6 @@
+﻿  main.cpp
+F:\Academics\4th year 2nd term\Graphics\gymnasium\gymnasium\shader.h(41,40): warning C4101: 'e': unreferenced local variable
+  (compiling source file 'main.cpp')
+  
+F:\Academics\4th year 2nd term\Graphics\gymnasium\gymnasium\main.cpp(88,28): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  gymnasium.vcxproj -> F:\Academics\4th year 2nd term\Graphics\gymnasium\x64\Debug\gymnasium.exe
