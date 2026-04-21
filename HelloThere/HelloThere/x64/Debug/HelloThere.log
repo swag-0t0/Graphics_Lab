@@ -1,0 +1,52 @@
+﻿  main.cpp
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(364,21): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(365,24): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(370,21): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(371,24): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(376,21): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(377,24): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(382,21): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(383,24): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(388,74): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(389,74): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(390,74): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(391,74): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(392,74): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(393,74): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(394,70): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(395,70): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(396,70): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(397,70): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(414,21): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(419,21): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(424,21): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(429,21): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(434,21): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(439,21): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(444,24): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(449,24): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(454,24): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(459,24): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(464,24): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(469,24): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(601,77): warning C4101: 'scaleMatrix': unreferenced local variable
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(617,89): warning C4305: 'argument': truncation from 'double' to 'float'
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(617,84): warning C4305: 'argument': truncation from 'double' to 'float'
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(618,89): warning C4305: 'argument': truncation from 'double' to 'float'
+F:\Academics\4th year 2nd term\Graphics\HelloThere\HelloThere\main.cpp(618,77): warning C4305: 'argument': truncation from 'double' to 'float'
+glfw3.lib(init.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(init.obj)' or at 'F:\Academics\4th year 2nd term\Graphics\HelloThere\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(window.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(window.obj)' or at 'F:\Academics\4th year 2nd term\Graphics\HelloThere\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(input.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(input.obj)' or at 'F:\Academics\4th year 2nd term\Graphics\HelloThere\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(context.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(context.obj)' or at 'F:\Academics\4th year 2nd term\Graphics\HelloThere\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(win32_init.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(win32_init.obj)' or at 'F:\Academics\4th year 2nd term\Graphics\HelloThere\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(win32_monitor.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(win32_monitor.obj)' or at 'F:\Academics\4th year 2nd term\Graphics\HelloThere\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(win32_time.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(win32_time.obj)' or at 'F:\Academics\4th year 2nd term\Graphics\HelloThere\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(win32_thread.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(win32_thread.obj)' or at 'F:\Academics\4th year 2nd term\Graphics\HelloThere\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(monitor.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(monitor.obj)' or at 'F:\Academics\4th year 2nd term\Graphics\HelloThere\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(vulkan.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(vulkan.obj)' or at 'F:\Academics\4th year 2nd term\Graphics\HelloThere\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(win32_window.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(win32_window.obj)' or at 'F:\Academics\4th year 2nd term\Graphics\HelloThere\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(win32_joystick.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(win32_joystick.obj)' or at 'F:\Academics\4th year 2nd term\Graphics\HelloThere\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(wgl_context.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(wgl_context.obj)' or at 'F:\Academics\4th year 2nd term\Graphics\HelloThere\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(egl_context.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(egl_context.obj)' or at 'F:\Academics\4th year 2nd term\Graphics\HelloThere\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(osmesa_context.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(osmesa_context.obj)' or at 'F:\Academics\4th year 2nd term\Graphics\HelloThere\x64\Debug\glfw3.pdb'; linking object as if no debug info
+  HelloThere.vcxproj -> F:\Academics\4th year 2nd term\Graphics\HelloThere\x64\Debug\HelloThere.exe

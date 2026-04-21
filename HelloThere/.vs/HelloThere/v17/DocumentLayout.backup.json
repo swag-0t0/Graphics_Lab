@@ -1,0 +1,58 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "F:\\Academics\\4th year 2nd term\\Graphics\\HelloThere\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F94664CB-D4EC-4A0F-BA59-A397E605B94B}|HelloThere\\HelloThere.vcxproj|F:\\Academics\\4th year 2nd term\\Graphics\\HelloThere\\HelloThere\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F94664CB-D4EC-4A0F-BA59-A397E605B94B}|HelloThere\\HelloThere.vcxproj|solutionrelative:HelloThere\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F94664CB-D4EC-4A0F-BA59-A397E605B94B}|HelloThere\\HelloThere.vcxproj|F:\\Academics\\4th year 2nd term\\Graphics\\HelloThere\\HelloThere\\basic_camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F94664CB-D4EC-4A0F-BA59-A397E605B94B}|HelloThere\\HelloThere.vcxproj|solutionrelative:HelloThere\\basic_camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 95,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "basic_camera.h",
+              "DocumentMoniker": "F:\\Academics\\4th year 2nd term\\Graphics\\HelloThere\\HelloThere\\basic_camera.h",
+              "RelativeDocumentMoniker": "HelloThere\\basic_camera.h",
+              "ToolTip": "F:\\Academics\\4th year 2nd term\\Graphics\\HelloThere\\HelloThere\\basic_camera.h",
+              "RelativeToolTip": "HelloThere\\basic_camera.h",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACIAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-21T17:37:13.394Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "main.cpp",
+              "DocumentMoniker": "F:\\Academics\\4th year 2nd term\\Graphics\\HelloThere\\HelloThere\\main.cpp",
+              "RelativeDocumentMoniker": "HelloThere\\main.cpp",
+              "ToolTip": "F:\\Academics\\4th year 2nd term\\Graphics\\HelloThere\\HelloThere\\main.cpp",
+              "RelativeToolTip": "HelloThere\\main.cpp",
+              "ViewState": "AgIAAI8CAAAAAAAAAAAtwKQCAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-21T17:36:47.368Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
